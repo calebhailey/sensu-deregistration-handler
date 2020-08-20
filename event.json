@@ -1,0 +1,112 @@
+{
+  "check": {
+    "check_hooks": null,
+    "command": "check-cpu.sh -w 75 -c 90",
+    "duration": 1.07055808,
+    "env_vars": null,
+    "executed": 1597733817,
+    "handlers": ["influxdb-events"],
+    "high_flap_threshold": 0,
+    "history": [
+      {
+        "executed": 1597733817,
+        "status": 0
+      }
+    ],
+    "interval": 500000,
+    "is_silenced": true,
+    "issued": 1597733817,
+    "last_ok": 1552594758,
+    "low_flap_threshold": 0,
+    "metadata": {
+      "name": "check-cpu",
+      "namespace": "default"
+    },
+    "occurrences": 1,
+    "occurrences_watermark": 1,
+    "output": "CPU OK - Usage:3.96\n",
+    "silenced": [
+      "entity:gin:scheck-cpu"
+    ],
+    "output_metric_format": "",
+    "output_metric_handlers": [],
+    "proxy_entity_name": "",
+    "publish": true,
+    "round_robin": false,
+    "runtime_assets": [],
+    "state": "passing",
+    "status": 0,
+    "stdin": false,
+    "subdue": null,
+    "subscriptions": [
+      "linux"
+    ],
+    "timeout": 0,
+    "total_state_change": 0,
+    "ttl": 0
+  },
+  "entity": {
+    "deregister": false,
+    "deregistration": {},
+    "entity_class": "agent",
+    "last_seen": 1552594641,
+    "metadata": {
+      "name": "nginx-bbd465f66-xpcwf",
+      "namespace": "default"
+    },
+    "redact": [
+      "password",
+      "passwd",
+      "pass",
+      "api_key",
+      "api_token",
+      "access_key",
+      "secret_key",
+      "private_key",
+      "secret"
+    ],
+    "subscriptions": [
+      "linux",
+      "entity:sensu-centos"
+    ],
+    "system": {
+      "arch": "amd64",
+      "hostname": "sensu-centos",
+      "network": {
+        "interfaces": [
+          {
+            "addresses": [
+              "127.0.0.1/8",
+              "::1/128"
+            ],
+            "name": "lo"
+          },
+          {
+            "addresses": [
+              "10.0.2.15/24",
+              "fe80::9688:67ca:3d78:ced9/64"
+            ],
+            "mac": "08:00:27:11:ad:d2",
+            "name": "enp0s3"
+          },
+          {
+            "addresses": [
+              "172.28.128.3/24",
+              "fe80::a00:27ff:fe6b:c1e9/64"
+            ],
+            "mac": "08:00:27:6b:c1:e9",
+            "name": "enp0s8"
+          }
+        ]
+      },
+      "os": "linux",
+      "platform": "centos",
+      "platform_family": "rhel",
+      "platform_version": "7.4.1708",
+      "processes": null
+    },
+    "user": "agent"
+  },
+  "timestamp": 1597733834,
+  "event_id": "3a5948f3-6ffd-4ea2-a41e-334f4a72ca2f"
+}

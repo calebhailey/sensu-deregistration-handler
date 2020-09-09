@@ -78,7 +78,16 @@ var (
 			Usage:     "Sensu Namespace",
 			Value:     &plugin.Namespace,
 		},
-	}
+		&sensu.PluginConfigOption{
+			Path:      "trusted-ca-file",
+			Env:       "SENSU_TRUSTED_CA_FILE",
+			Argument:  "trusted-ca-file",
+			Shorthand: "",
+			Default:   "",
+			Usage:     "Sensu Certificate Authority File",
+			Value:     &plugin.TrustedCaFile,
+    },
+  }
 )
 
 func main() {
@@ -87,7 +96,7 @@ func main() {
 }
 
 func checkArgs(event *types.Event) error {
-  plugin.Entity = event.Entity.Name
+	plugin.Entity = event.Entity.Name
 	if len(plugin.ApiKey) == 0 && len(plugin.AccessToken) == 0 {
 		return fmt.Errorf("--api-key or $SENSU_API_KEY, or --access-token or $SENSU_ACCESS_TOKEN environment variable is required!")
 	}
@@ -173,6 +182,9 @@ func executeHandler(event *types.Event) error {
 		log.Fatalf("ERROR: %s\n", err)
 		return err
 	} else if resp.StatusCode == 404 {
+		log.Fatalf("ERROR: %v %s (%s)\n", resp.StatusCode, http.StatusText(resp.StatusCode), req.URL)
+		return err
+	} else if resp.StatusCode == 401 {
 		log.Fatalf("ERROR: %v %s (%s)\n", resp.StatusCode, http.StatusText(resp.StatusCode), req.URL)
 		return err
 	} else if resp.StatusCode >= 300 {

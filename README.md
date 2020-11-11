@@ -2,54 +2,46 @@
 ![Go Test](https://github.com/calebhailey/sensu-deregistration-handler/workflows/Go%20Test/badge.svg)
 ![goreleaser](https://github.com/calebhailey/sensu-deregistration-handler/workflows/goreleaser/badge.svg)
 
-# Handler Plugin Template
-
-## Overview
-handler-plugin-template is a template repository which wraps the [Sensu Plugin SDK][2].
-To use this project as a template, click the "Use this template" button from the main project page.
-Once the repository is created from this template, you can use the [Sensu Plugin Tool][9] to
-populate the templated fields with the proper values.
-
-## Functionality
-
-After successfully creating a project from this template, update the `Config` struct with any
-configuration options for the plugin, map those values as plugin options in the variable `options`,
-and customize the `checkArgs` and `executeHandler` functions in [main.go][7].
-
-When writing or updating a plugin's README from this template, review the Sensu Community
-[plugin README style guide][3] for content suggestions and guidance. Remove everything
-prior to `# sensu-deregistration-handler` from the generated README file, and add additional context about the
-plugin per the style guide.
-
-## Releases with Github Actions
-
-To release a version of your project, simply tag the target sha with a semver release without a `v`
-prefix (ex. `1.0.0`). This will trigger the [GitHub action][5] workflow to [build and release][4]
-the plugin with goreleaser. Register the asset with [Bonsai][8] to share it with the community!
-
-***
-
-# sensu-deregistration-handler
+# Sensu Deregistration Handler
 
 ## Table of Contents
 - [Overview](#overview)
-- [Files](#files)
-- [Usage examples](#usage-examples)
+- [Usage](#usage)
 - [Configuration](#configuration)
   - [Asset registration](#asset-registration)
   - [Handler definition](#handler-definition)
-  - [Annotations](#annotations)
 - [Installation from source](#installation-from-source)
-- [Additional notes](#additional-notes)
 - [Contributing](#contributing)
 
 ## Overview
 
-The sensu-deregistration-handler is a [Sensu Handler][6] that ...
+The Sensu Deregistration Handler is a simple handler that deletes entities from the 
+Sensu Entities API. Any valid Sensu Event can be used to initiate a deregistration, 
+including keepalive events. 
 
-## Files
+## Usage
 
-## Usage examples
+```
+Deregister Sensu entities on-demand! This handler take zero arguments and does not perform any validation. It simply consumes events and deletes the entity referenced in the event. Use with caution!
+
+Usage:
+  sensu-deregistration-handler [flags]
+  sensu-deregistration-handler [command]
+
+Available Commands:
+  help        Help about any command
+  version     Print the version number of this plugin
+
+Flags:
+      --access-token string      Sensu Access Token
+      --api-key string           Sensu API Key
+      --api-url string           Sensu API URL (default "http://127.0.0.1:8080")
+  -h, --help                     help for sensu-deregistration-handler
+      --namespace string         Sensu Namespace
+      --trusted-ca-file string   Sensu Trusted Certificate Authority file
+
+Use "sensu-deregistration-handler [command] --help" for more information about a command.
+```
 
 ## Configuration
 
@@ -73,37 +65,11 @@ type: Handler
 api_version: core/v2
 metadata:
   name: sensu-deregistration-handler
-  namespace: default
 spec:
-  command: sensu-deregistration-handler --example example_arg
   type: pipe
+  command: sensu-deregistration-handler
   runtime_assets:
   - calebhailey/sensu-deregistration-handler
-```
-
-#### Proxy Support
-
-This handler supports the use of the environment variables HTTP_PROXY,
-HTTPS_PROXY, and NO_PROXY (or the lowercase versions thereof). HTTPS_PROXY takes
-precedence over HTTP_PROXY for https requests.  The environment values may be
-either a complete URL or a "host[:port]", in which case the "http" scheme is assumed.
-
-### Annotations
-
-All arguments for this handler are tunable on a per entity or check basis based on annotations.  The
-annotations keyspace for this handler is `sensu.io/plugins/sensu-deregistration-handler/config`.
-
-#### Examples
-
-To change the example argument for a particular check, for that checks's metadata add the following:
-
-```yml
-type: CheckConfig
-api_version: core/v2
-metadata:
-  annotations:
-    sensu.io/plugins/sensu-deregistration-handler/config/example-argument: "Example change"
-[...]
 ```
 
 ## Installation from source
@@ -117,8 +83,6 @@ From the local path of the sensu-deregistration-handler repository:
 ```
 go build
 ```
-
-## Additional notes
 
 ## Contributing
 

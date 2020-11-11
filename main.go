@@ -57,7 +57,7 @@ var (
 			Argument:  "api-key",
 			Shorthand: "",
 			Default:   "",
-			Secret: 	 true,
+			Secret:    true,
 			Usage:     "Sensu API Key",
 			Value:     &plugin.ApiKey,
 		},
@@ -67,7 +67,7 @@ var (
 			Argument:  "access-token",
 			Shorthand: "",
 			Default:   "",
-			Secret: 	 true,
+			Secret:    true,
 			Usage:     "Sensu Access Token",
 			Value:     &plugin.AccessToken,
 		},
@@ -88,8 +88,8 @@ var (
 			Default:   "",
 			Usage:     "Sensu Trusted Certificate Authority file",
 			Value:     &plugin.TrustedCaFile,
-    },
-  }
+		},
+	}
 )
 
 func main() {

@@ -57,6 +57,7 @@ var (
 			Argument:  "api-key",
 			Shorthand: "",
 			Default:   "",
+			Secret: 	 true,
 			Usage:     "Sensu API Key",
 			Value:     &plugin.ApiKey,
 		},
@@ -66,6 +67,7 @@ var (
 			Argument:  "access-token",
 			Shorthand: "",
 			Default:   "",
+			Secret: 	 true,
 			Usage:     "Sensu Access Token",
 			Value:     &plugin.AccessToken,
 		},
@@ -84,7 +86,7 @@ var (
 			Argument:  "trusted-ca-file",
 			Shorthand: "",
 			Default:   "",
-			Usage:     "Sensu Certificate Authority File",
+			Usage:     "Sensu Trusted Certificate Authority file",
 			Value:     &plugin.TrustedCaFile,
     },
   }
@@ -100,8 +102,13 @@ func checkArgs(event *types.Event) error {
 	if len(plugin.ApiKey) == 0 && len(plugin.AccessToken) == 0 {
 		return fmt.Errorf("--api-key or $SENSU_API_KEY, or --access-token or $SENSU_ACCESS_TOKEN environment variable is required!")
 	}
-	if len(os.Getenv("SENSU_NAMESPACE")) > 0 {
-		plugin.Namespace = os.Getenv("SENSU_NAMESPACE")
+	if len(plugin.Namespace) == 0 {
+		if len(os.Getenv("SENSU_NAMESPACE")) > 0 {
+			plugin.Namespace = os.Getenv("SENSU_NAMESPACE")
+		} else {
+			plugin.Namespace = event.Entity.Namespace
+		}
+		fmt.Printf("Namespace: %s\n",plugin.Namespace)
 	}
 	if len(os.Getenv("SENSU_ACCESS_TOKEN")) > 0 {
 		plugin.AccessToken = os.Getenv("SENSU_ACCESS_TOKEN")

@@ -108,7 +108,6 @@ func checkArgs(event *types.Event) error {
 		} else {
 			plugin.Namespace = event.Entity.Namespace
 		}
-		fmt.Printf("Namespace: %s\n",plugin.Namespace)
 	}
 	if len(os.Getenv("SENSU_ACCESS_TOKEN")) > 0 {
 		plugin.AccessToken = os.Getenv("SENSU_ACCESS_TOKEN")
@@ -198,7 +197,7 @@ func executeHandler(event *types.Event) error {
 		log.Fatalf("ERROR: %v %s", resp.StatusCode, http.StatusText(resp.StatusCode))
 		return err
 	} else if resp.StatusCode == 204 {
-		log.Printf("SUCCESS")
+		log.Printf("Successfully deleted entity \"%s\" from namespace \"%s\"", event.Entity.Name, event.Entity.Namespace)
 		return nil
 	} else {
 		defer resp.Body.Close()

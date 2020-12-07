@@ -119,22 +119,17 @@ func checkArgs(event *types.Event) error {
 			plugin.Namespace = event.Entity.Namespace
 		}
 	}
-	if len(os.Getenv("SENSU_ACCESS_TOKEN")) > 0 {
-		plugin.AccessToken = os.Getenv("SENSU_ACCESS_TOKEN")
+	if len(plugin.AccessToken) > 0 {
 		plugin.AuthHeader = fmt.Sprintf(
 			"Bearer %s",
-			os.Getenv("SENSU_API_KEY"),
+			plugin.AccessToken,
 		)
 	}
-	if len(os.Getenv("SENSU_API_KEY")) > 0 {
-		plugin.ApiKey = os.Getenv("SENSU_API_KEY")
+	if len(plugin.ApiKey) > 0 {
 		plugin.AuthHeader = fmt.Sprintf(
 			"Key %s",
-			os.Getenv("SENSU_API_KEY"),
+			plugin.ApiKey,
 		)
-	}
-	if len(os.Getenv("SENSU_API_URL")) > 0 {
-		plugin.ApiUrl = os.Getenv("SENSU_API_URL")
 	}
 	return nil
 }

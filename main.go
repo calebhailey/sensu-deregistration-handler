@@ -24,13 +24,14 @@ type Config struct {
 	Namespace     string
 	Entity        string
 	TrustedCaFile string
+	InsecureSkipVerify bool
 }
 
 var (
 	re          = regexp.MustCompile(`\s+`)
 	description = `
-    Deregister Sensu entities on-demand! This handler take zero arguments 
-    and does not perform any validation. It simply consumes events and 
+    Deregister Sensu entities on-demand! This handler take zero arguments
+    and does not perform any validation. It simply consumes events and
     deletes the entity referenced in the event. Use with caution!
     `
 	plugin = Config{
@@ -88,6 +89,15 @@ var (
 			Default:   "",
 			Usage:     "Sensu Trusted Certificate Authority file",
 			Value:     &plugin.TrustedCaFile,
+		},
+		&sensu.PluginConfigOption{
+			Path:      "insecure-skip-tls-verify",
+			Env:       "",
+			Argument:  "insecure-skip-tls-verify",
+			Shorthand: "k",
+			Default:   false,
+			Usage:     "Do not check certificate validity.",
+			Value:     &plugin.InsecureSkipVerify,
 		},
 	}
 )
@@ -157,6 +167,9 @@ func initHTTPClient() *http.Client {
 	}
 	tlsConfig := &tls.Config{
 		RootCAs: certs,
+	}
+	if plugin.InsecureSkipVerify == true {
+		tlsConfig.InsecureSkipVerify = true
 	}
 	tr := &http.Transport{
 		TLSClientConfig: tlsConfig,

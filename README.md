@@ -15,9 +15,9 @@
 
 ## Overview
 
-The Sensu Deregistration Handler is a simple handler that deletes entities from the 
-Sensu Entities API. Any valid Sensu Event can be used to initiate a deregistration, 
-including keepalive events. 
+The Sensu Deregistration Handler is a simple handler that deletes entities from the
+Sensu Entities API. Any valid Sensu Event can be used to initiate a deregistration,
+including keepalive events.
 
 ## Usage
 
@@ -33,12 +33,13 @@ Available Commands:
   version     Print the version number of this plugin
 
 Flags:
-      --access-token string      Sensu Access Token
-      --api-key string           Sensu API Key
-      --api-url string           Sensu API URL (default "http://127.0.0.1:8080")
-  -h, --help                     help for sensu-deregistration-handler
-      --namespace string         Sensu Namespace
-      --trusted-ca-file string   Sensu Trusted Certificate Authority file
+      --access-token string        Sensu Access Token
+      --api-key string             Sensu API Key
+      --api-url string             Sensu API URL (default "http://127.0.0.1:8080")
+  -h, --help                       help for sensu-deregistration-handler
+  -k, --insecure-skip-tls-verify   skip TLS certificate verification
+      --namespace string           Sensu Namespace
+      --trusted-ca-file string     Sensu Trusted Certificate Authority file
 
 Use "sensu-deregistration-handler [command] --help" for more information about a command.
 ```

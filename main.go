@@ -96,7 +96,7 @@ var (
 			Argument:  "insecure-skip-tls-verify",
 			Shorthand: "k",
 			Default:   false,
-			Usage:     "Do not check certificate validity.",
+			Usage:     "skip TLS certificate verification",
 			Value:     &plugin.InsecureSkipVerify,
 		},
 	}
